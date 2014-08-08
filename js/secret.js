@@ -1,0 +1,3 @@
+$('.isotope').isotope({
+    //
+});
