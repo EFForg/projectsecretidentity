@@ -19,7 +19,9 @@ $.getJSON("data/posts.json", function (posts) {
         $wrapper.append($el);
     }
 
-    $(".isotope").append($wrapper.children());
+    $(".isotope")
+        .empty()
+        .append($wrapper.children());
 
     $(".isotope").isotope({
         itemSelector : ".photo",
