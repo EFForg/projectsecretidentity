@@ -13,6 +13,10 @@ $.getJSON("data/posts.json", function (posts) {
             "data-xl" : imageXL
         });
 
+        if (!caption) {
+            $el.find('p').remove();
+        }
+
         var height  = (post.height / post.width) * 300;
         $el.find("img").height(height);
 
