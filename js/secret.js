@@ -1,8 +1,15 @@
 $.getJSON("data/posts.json", function (posts) {
     var $wrapper = $("<div>");
 
+    var $isotope = $(".isotope");
+    var maxImages = $isotope.data('max-images') || 999999;
+
     for (var i in posts) {
-        var post    = posts[i];
+        if (i > maxImages) {
+            break;
+        }
+
+        var post = posts[i];
 
         var $el = $.template("#template-photo", {
             "caption" : post.blurb,
@@ -20,15 +27,14 @@ $.getJSON("data/posts.json", function (posts) {
         $wrapper.append($el);
     }
 
-    $(".isotope")
+    $isotope
         .empty()
-        .append($wrapper.children());
-
-    $(".isotope").isotope({
-        itemSelector : ".photo",
-        masonry : {
-            columnWidth : 320,
-            isFitWidth  : true
-        }
-    });
+        .append($wrapper.children())
+        .isotope({
+            itemSelector : ".photo",
+            masonry : {
+                columnWidth : 320,
+                isFitWidth  : true
+            }
+        });
 });
