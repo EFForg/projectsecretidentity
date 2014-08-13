@@ -3,17 +3,14 @@ $.getJSON("data/posts.json", function (posts) {
 
     for (var i in posts) {
         var post    = posts[i];
-        var caption = post.blurb.trim();
-        var image   = post.url500.replace(/^http:\/\/\d+/, "https://38");
-        var imageXL = post.url1280.replace(/^http:\/\/\d+/, "https://38");
 
         var $el = $.template("#template-photo", {
-            "caption" : caption,
-            "image"   : image,
-            "data-xl" : imageXL
+            "caption" : post.blurb,
+            "image"   : post.url500,
+            "data-xl" : post.url1280
         });
 
-        if (!caption) {
+        if (!post.blurb) {
             $el.find('p').remove();
         }
 
