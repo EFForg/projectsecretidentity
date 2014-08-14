@@ -47,7 +47,7 @@ $.getJSON("data/posts.json", function (posts) {
                 $wrapper.append($el);
             }
 
-            $(".isotope").isotope("insert", $wrapper.children());
+            $isotope.isotope("insert", $wrapper.children());
 
         });
 });
