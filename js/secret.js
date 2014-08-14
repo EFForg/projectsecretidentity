@@ -1,5 +1,5 @@
 var $isotope = $(".isotope");
-var imageCount = $isotope.data('image-count') || 999999;
+var imageCount = $isotope.data("image-count") || 999999;
 var queue = [];
 
 $.getJSON("data/posts.json", function (posts) {
@@ -30,10 +30,10 @@ $.getJSON("data/posts.json", function (posts) {
             }
         });
 
-    $('#view-more')
-        .removeAttr('disabled')
-        .on('click', function () {
-            var $wrapper = $('<div>');
+    $("#view-more")
+        .removeAttr("disabled")
+        .on("click", function () {
+            var $wrapper = $("<div>");
             for (var i = 0; i < imageCount; i++) {
                 if (!queue.length) {
                     $(this).remove();
@@ -47,7 +47,7 @@ $.getJSON("data/posts.json", function (posts) {
                 $wrapper.append($el);
             }
 
-            $('.isotope').isotope('insert', $wrapper.children());
+            $(".isotope").isotope("insert", $wrapper.children());
 
         });
 });
@@ -60,7 +60,7 @@ function renderPost (post) {
     });
 
     if (!post.blurb) {
-        $el.find('p').remove();
+        $el.find("p").remove();
     }
 
     var height = (post.height / post.width) * 300;
