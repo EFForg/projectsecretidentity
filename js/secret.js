@@ -3,6 +3,10 @@ var size = $isotope.data('image-size');
 var imageCount = $isotope.data("image-count") || 999999;
 var queue = [];
 
+$('.slider').owlCarousel({
+    items: 1
+});
+
 $.getJSON("data/posts.json", function (posts) {
     var $wrapper = $("<div>");
 
