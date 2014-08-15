@@ -1,6 +1,5 @@
-var $isotope = $(".isotope");
-var size = $isotope.data('image-size');
-var imageCount = $isotope.data("image-count") || 999999;
+var $target = $(".target");
+var imageCount = $target.data('image-count');
 var queue = [];
 
 $.getJSON("data/posts.json", function (posts) {
@@ -14,22 +13,21 @@ $.getJSON("data/posts.json", function (posts) {
             continue;
         }
 
-        var $el = renderPost(post, size);
+        var $el = renderPost(post);
 
         $wrapper.append($el);
 
     }
 
-    $isotope
+    $target
         .empty()
-        .append($wrapper.children())
-        .isotope({
-            itemSelector : ".photo",
-            masonry : {
-                columnWidth : 320,
-                isFitWidth  : true
-            }
-        });
+        .append($wrapper.children());
+
+    // Animate in after a delay
+    setTimeout(function () {
+        $target.find('.photo').css('opacity', 1);
+    }, 100);
+
 
     $("#view-more")
         .removeAttr("disabled")
@@ -43,33 +41,30 @@ $.getJSON("data/posts.json", function (posts) {
 
                 var post = queue.shift();
 
-                var $el = renderPost(post, size);
+                var $el = renderPost(post);
 
                 $wrapper.append($el);
             }
 
-            $isotope.isotope("insert", $wrapper.children());
+            $target.append($wrapper.children());
+
+            // Animate in after a delay
+            setTimeout(function () {
+                $target.find('.photo').css('opacity', 1);
+            }, 100);
 
         });
 });
 
-function renderPost (post, size) {
-    var photo = post.url500;
-    if (size === 'xl') {
-        photo = post.url1280;
-    }
-
+function renderPost (post) {
     var $el = $.template("#template-photo", {
         "caption" : post.blurb,
-        "image"   : photo
+        "image"   : post.url1280
     });
 
     if (!post.blurb) {
         $el.find("p").remove();
     }
-
-    var height = (post.height / post.width) * 300;
-    $el.find("img").height(height);
 
     return $el;
 }
