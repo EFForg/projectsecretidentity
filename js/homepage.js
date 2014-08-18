@@ -1,11 +1,13 @@
-var $isotope = $(".isotope");
-var size = $isotope.data('image-size');
-var imageCount = $isotope.data("image-count") || 999999;
-var queue = [];
-
+// OWL Carousel
 $('.slider').owlCarousel({
     singleItem: true
 });
+
+// Isotope
+var $isotope = $(".isotope");
+var size = $isotope.data('image-size');
+var imageCount = $isotope.data("image-count");
+var queue = [];
 
 $.getJSON("data/posts.json", function (posts) {
     var $wrapper = $("<div>");
@@ -33,27 +35,6 @@ $.getJSON("data/posts.json", function (posts) {
                 columnWidth : 320,
                 isFitWidth  : true
             }
-        });
-
-    $("#view-more")
-        .removeAttr("disabled")
-        .on("click", function () {
-            var $wrapper = $("<div>");
-            for (var i = 0; i < imageCount; i++) {
-                if (!queue.length) {
-                    $(this).remove();
-                    break;
-                }
-
-                var post = queue.shift();
-
-                var $el = renderPost(post, size);
-
-                $wrapper.append($el);
-            }
-
-            $isotope.isotope("insert", $wrapper.children());
-
         });
 });
 
