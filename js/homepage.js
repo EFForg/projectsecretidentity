@@ -58,3 +58,20 @@ function renderPost (post, size) {
 
     return $el;
 }
+
+// Vex
+vex.defaultOptions.className = 'vex-theme-flat-attack';
+$('#join').on('click', function(e) {
+    e.preventDefault();
+
+    var joinUrl = this.href;
+
+    vex.dialog.confirm({
+        message: "To view the Tumblr submission form, you'll need to accept Tumblr's <a href='http://projectsecretidentity.tumblr.com/terms_of_submission' target='_blank'>privacy policy</a> regarding submissions. (Note: We've read it and given it the thumbs up)",
+        callback: function(accepted) {
+            if (accepted) {
+                window.location = joinUrl;
+            }
+        }
+    });
+});
