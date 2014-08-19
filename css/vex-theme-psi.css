@@ -1,3 +1,7 @@
+/*
+  Extended from the "Flat Attack" theme
+*/
+
 @keyframes vex-flipin-horizontal {
   /* line 107, ../sass/_keyframes.sass */
   0% {
@@ -260,13 +264,21 @@
   font-family: "Helvetica Neue", sans-serif;
   font-weight: 200;
   background: white;
-  color: #444444;
+  color: #f05a28;
   padding: 2em 2em 3em 2em;
   line-height: 1.5em;
   position: relative;
   margin: 0 auto;
   max-width: 100%;
   width: 600px;
+}
+.vex.vex-theme-flat-attack .vex-content a {
+  color: #fbb040;
+  text-decoration: none;
+}
+.vex.vex-theme-flat-attack .vex-content a:hover {
+  /*color: #f05a28;*/
+  text-decoration: underline;
 }
 /* line 57, ../sass/vex-theme-flat-attack.sass */
 .vex.vex-theme-flat-attack .vex-content h1, .vex.vex-theme-flat-attack .vex-content h2, .vex.vex-theme-flat-attack .vex-content h3, .vex.vex-theme-flat-attack .vex-content h4, .vex.vex-theme-flat-attack .vex-content h5, .vex.vex-theme-flat-attack .vex-content h6, .vex.vex-theme-flat-attack .vex-content p, .vex.vex-theme-flat-attack .vex-content ul, .vex.vex-theme-flat-attack .vex-content li {
@@ -371,7 +383,7 @@
 }
 /* line 133, ../sass/vex-theme-flat-attack.sass */
 .vex.vex-theme-flat-attack .vex-dialog-button.vex-dialog-button-primary {
-  background: #666666;
+  background: #f05a28;
   color: white;
 }
 /* line 137, ../sass/vex-theme-flat-attack.sass */
