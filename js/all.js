@@ -31,6 +31,7 @@ $.getJSON("data/posts.json", function (posts) {
 
     $("#view-more")
         .removeAttr("disabled")
+        .show()
         .on("click", function () {
             var $wrapper = $("<div>");
             for (var i = 0; i < imageCount; i++) {
