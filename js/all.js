@@ -1,14 +1,15 @@
 var $target = $(".target");
+var $viewMore = $("#view-more");
 var imageCount = $target.data('image-count');
 var queue = [];
 
 $.getJSON("data/posts.json", function (posts) {
     var $wrapper = $("<div>");
 
-    for (var i in posts) {
+    for (var i = 0; i < posts.length; i++) {
         var post = posts[i];
 
-        if (i > imageCount) {
+        if (i >= imageCount) {
             queue.push(post);
             continue;
         }
@@ -16,7 +17,6 @@ $.getJSON("data/posts.json", function (posts) {
         var $el = renderPost(post);
 
         $wrapper.append($el);
-
     }
 
     $target
@@ -29,9 +29,8 @@ $.getJSON("data/posts.json", function (posts) {
     }, 100);
 
 
-    $("#view-more")
+    $viewMore
         .removeAttr("disabled")
-        .show()
         .on("click", function () {
             var $wrapper = $("<div>");
             for (var i = 0; i < imageCount; i++) {
@@ -55,6 +54,10 @@ $.getJSON("data/posts.json", function (posts) {
             }, 100);
 
         });
+
+    if (queue.length) {
+        $viewMore.show();
+    }
 });
 
 function renderPost (post) {
