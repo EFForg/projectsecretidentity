@@ -1,7 +1,10 @@
 // OWL Carousel
-$('.slider').owlCarousel({
-    singleItem: true
-});
+$('.slider')
+    .owlCarousel({
+        singleItem: true
+    })
+    .show();
+$('.hero .preloader').remove();
 
 // Isotope
 var $isotope = $(".isotope");
