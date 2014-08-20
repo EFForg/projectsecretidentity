@@ -1,6 +1,6 @@
 var $target = $(".target");
 var $viewMore = $("#view-more");
-var imageCount = $target.data('image-count');
+var imageCount = +$target.data('image-count') || 3;
 var queue = [];
 
 $.getJSON("data/posts.json", function (posts) {
@@ -35,7 +35,6 @@ $.getJSON("data/posts.json", function (posts) {
             var $wrapper = $("<div>");
             for (var i = 0; i < imageCount; i++) {
                 if (!queue.length) {
-                    $(this).remove();
                     break;
                 }
 
@@ -47,6 +46,10 @@ $.getJSON("data/posts.json", function (posts) {
             }
 
             $target.append($wrapper.children());
+
+            if (!queue.length) {
+                $viewMore.remove();
+            }
 
             // Animate in after a delay
             setTimeout(function () {

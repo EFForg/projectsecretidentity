@@ -6,24 +6,21 @@ $('.slider').owlCarousel({
 // Isotope
 var $isotope = $(".isotope");
 var size = $isotope.data('image-size');
-var imageCount = $isotope.data("image-count");
-var queue = [];
 
 $.getJSON("data/posts.json", function (posts) {
     var $wrapper = $("<div>");
 
-    for (var i in posts) {
+    for (var i = 0; i < posts.length; i++) {
         var post = posts[i];
 
-        if (i > imageCount) {
-            queue.push(post);
+        // Show featured images
+        if (!post.tags || post.tags.indexOf('featured') == -1) {
             continue;
         }
 
         var $el = renderPost(post, size);
 
         $wrapper.append($el);
-
     }
 
     $isotope
