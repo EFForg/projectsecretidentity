@@ -61,6 +61,22 @@ $.getJSON("data/posts.json", function (posts) {
     if (queue.length) {
         $viewMore.show();
     }
+
+    var hash = location.hash;
+    if (hash) {
+        vex.defaultOptions.className = 'vex-theme-flat-attack';
+
+        var id = hash.substr(1);
+        for (var i = posts.length - 1; i >= 0; i--) {
+            var post = posts[i];
+
+            if (post.id === id) {
+                var html = renderPost(post).html();
+                vex.dialog.alert(html);
+                break;
+            }
+        };
+    }
 });
 
 function renderPost (post) {
