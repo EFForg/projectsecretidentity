@@ -57,18 +57,37 @@ function renderPost (post, size) {
 }
 
 // Vex
+var hasViewedPrivacyPolicy = false;
 vex.defaultOptions.className = 'vex-theme-flat-attack';
 $('#join').on('click', function(e) {
     e.preventDefault();
 
     var joinUrl = this.href;
 
-    vex.dialog.confirm({
-        message: "To view the Tumblr submission form, you'll need to accept Tumblr's <a href='http://projectsecretidentity.tumblr.com/terms_of_submission' target='_blank'>privacy policy</a> regarding submissions. (Note: We've read it and given it the thumbs up)",
-        callback: function(accepted) {
-            if (accepted) {
-                window.location = joinUrl;
+    if (!hasViewedPrivacyPolicy) {
+        vex.dialog.confirm({
+            message: "To view the form, you'll need to read Tumblr's <a class='tumblr-privacy-policy' href='http://projectsecretidentity.tumblr.com/terms_of_submission' target='_blank'>terms of submission</a>. (Note: We've read it and given it the thumbs up)",
+            callback: function(accepted) {
+                if (accepted) {
+                    if (hasViewedPrivacyPolicy) {
+                        window.location = joinUrl;
+                    } else {
+                        vex.dialog.alert("Please read the <a class='tumblr-privacy-policy' href='http://projectsecretidentity.tumblr.com/terms_of_submission' target='_blank'>terms of submission</a> before proceeding.");
+
+                        listenForPrivacyPolicyClick();
+                    }
+                }
             }
-        }
-    });
+        });
+    } else {
+        window.location = joinUrl;
+    }
+
+    listenForPrivacyPolicyClick();
 });
+
+function listenForPrivacyPolicyClick(url) {
+    $('.tumblr-privacy-policy').off().on('click', function (e) {
+        hasViewedPrivacyPolicy = true;
+    });
+}
