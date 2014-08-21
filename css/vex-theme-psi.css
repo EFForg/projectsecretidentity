@@ -471,3 +471,9 @@
   height: 4em;
   width: 4em;
 }
+
+/* Wide images */
+
+.vex-dialog-message img {
+  width: 100%;
+}
