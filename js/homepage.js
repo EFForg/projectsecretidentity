@@ -1,5 +1,6 @@
 // OWL Carousel
 $('.slider').owlCarousel({
+    autoPlay: 3000,
     singleItem: true
 });
 
