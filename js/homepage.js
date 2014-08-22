@@ -1,10 +1,12 @@
 // OWL Carousel
-$('.slider').owlCarousel({
-    autoPlay: 3000,
-    pagination: false,
-    singleItem: true,
-    transitionStyle: 'goDown'
-});
+$('.slider')
+    .owlCarousel({
+        autoPlay: 3000,
+        pagination: false,
+        singleItem: true,
+        transitionStyle: 'goDown'
+    })
+    .removeClass('loading');
 
 // Isotope
 var $isotope = $(".isotope");
