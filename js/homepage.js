@@ -1,6 +1,7 @@
 // OWL Carousel
 $('.slider').owlCarousel({
     autoPlay: 3000,
+    pagination: false,
     singleItem: true,
     transitionStyle: 'goDown'
 });
