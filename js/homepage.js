@@ -1,7 +1,8 @@
 // OWL Carousel
 $('.slider').owlCarousel({
     autoPlay: 3000,
-    singleItem: true
+    singleItem: true,
+    transitionStyle: 'goDown'
 });
 
 // Isotope
