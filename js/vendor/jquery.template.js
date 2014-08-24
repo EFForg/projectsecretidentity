@@ -13,7 +13,6 @@
         var $html = $('<div>' + templates[target] + '</div>');
 
         for (var i in values) {
-            $html.find('.attribute-' + i).attr(i, values[i]);
             $html.find('.class-' + i).addClass(values[i]);
             $html.find('.href-' + i).attr('href', values[i]);
             $html.find('.src-' + i).attr('src', values[i]);
