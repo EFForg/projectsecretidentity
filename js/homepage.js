@@ -71,7 +71,7 @@ $('#join').on('click', function(e) {
 
     if (!hasViewedPrivacyPolicy) {
         vex.dialog.confirm({
-            message: "To view the form, you'll need to read Tumblr's <a class='tumblr-privacy-policy' href='http://projectsecretidentity.tumblr.com/terms_of_submission' target='_blank'>terms of submission</a>. (Note: We've read it and given it the thumbs up)",
+            message: "To view the form, you'll need to read Tumblr's <a class='tumblr-privacy-policy' href='http://projectsecretidentity.tumblr.com/terms_of_submission' target='_blank'>terms of submission</a>.",
             callback: function(accepted) {
                 if (accepted) {
                     if (hasViewedPrivacyPolicy) {
