@@ -1,21 +1,35 @@
 vex.defaultOptions.className = 'vex-theme-flat-attack';
-
-// OWL Carousel
-$('.slider')
-    .owlCarousel({
-        autoPlay: 3000,
-        pagination: false,
-        singleItem: true,
-        transitionStyle: 'goDown'
-    })
-    .removeClass('loading');
-
-// Isotope
 var $isotope = $(".isotope");
 
 $.getJSON("data/posts.json", function (posts) {
-    var $wrapper = $("<div>");
+    var $wrapper;
 
+    // OWL Carousel
+    $wrapper = $("<div>");
+    for (var i = 0; i < posts.length; i++) {
+        var post = posts[i];
+
+        // Show featured images
+        if (!post.tags || post.tags.indexOf('topsecret') == -1) {
+            continue;
+        }
+
+        var $el = renderSlide(post);
+
+        $wrapper.append($el);
+    }
+    $('.slider')
+        .append($wrapper.children())
+        .owlCarousel({
+            autoPlay: 3000,
+            pagination: false,
+            singleItem: true,
+            transitionStyle: 'goDown'
+        })
+        .removeClass('loading');
+
+    // Isotope
+    $wrapper = $("<div>");
     for (var i = 0; i < posts.length; i++) {
         var post = posts[i];
 
@@ -75,6 +89,18 @@ function renderPost (post, options) {
         var height = (post.height / post.width) * 300;
         $el.find("img").height(height);
     }
+
+    $el.on('click', function (e) {
+        showSinglePost(post);
+    });
+
+    return $el;
+}
+
+function renderSlide (post) {
+    var $el = $.template("#template-slide", {
+        "image"   : post.url500
+    });
 
     $el.on('click', function (e) {
         showSinglePost(post);
