@@ -1,3 +1,5 @@
+vex.defaultOptions.className = 'vex-theme-flat-attack';
+
 var $target = $(".target");
 var $viewMore = $("#view-more");
 var imageCount = +$target.data('image-count') || 3;
@@ -62,32 +64,48 @@ $.getJSON("data/posts.json", function (posts) {
         $viewMore.show();
     }
 
-    var hash = location.hash;
-    if (hash) {
-        vex.defaultOptions.className = 'vex-theme-flat-attack';
-
-        var id = hash.substr(1);
+    var search = location.search;
+    if (search) {
+        var id = search.substr(1);
         for (var i = posts.length - 1; i >= 0; i--) {
             var post = posts[i];
 
             if (post.id === id) {
-                var html = renderPost(post).html();
-                vex.dialog.alert(html);
+                showSinglePost(post);
                 break;
             }
         };
     }
 });
 
+function showSinglePost (post) {
+    var permalink = encodeURIComponent('https://projectsecretidentity.org/all.html?' + post.id);
+
+    var html = renderPost(post).html();
+    var socialHtml = $('#template-social').html()
+                        .replace(/\$url/g, permalink)
+                        .replace(/\$id/g, post.id);
+
+    vex.dialog.alert(html + socialHtml);
+
+    $('.vex-overlay').height($('.vex-content').height() + 300);
+    $('.vex-overlay').css('min-height', '100%');
+    $('.vex').scrollTop(0)
+}
+
 function renderPost (post) {
     var $el = $.template("#template-photo", {
         "caption" : post.blurb,
-        "image"   : post.url1280
+        "image"   : post.url500
     });
 
     if (!post.blurb) {
         $el.find("p").remove();
     }
+
+    $el.on('click', function (e) {
+        showSinglePost(post);
+    });
 
     return $el;
 }

@@ -73,7 +73,7 @@
 
 
 <section class="all">
-    <div class="target" data-image-count="3">
+    <div class="target" data-image-count="6">
         <img alt="Loading images" src="images/preloader.gif">
     </div>
 
@@ -111,8 +111,29 @@
 <!-- Templates -->
 <script type="text/template" id="template-photo">
 <div class="photo">
-<img class="src-image">
-<p class="text-caption"></p>
+    <img class="src-image">
+    <p class="text-caption"></p>
+</div>
+</script>
+
+<script type="text/template" id="template-social">
+<div class="social">
+    <span></span>
+    <a title="Share with Google+" target="_blank" href="https://plus.google.com/share?url=$url" class="googleplus hover"></a>
+    <a class="googleplus"></a>
+
+    <a title="Share with Facebook" target="_blank" href="https://www.facebook.com/sharer.php?u=$url" class="facebook hover"></a>
+    <a class="facebook"></a>
+
+    <a title="Share with Twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Project%20Secret%20Identity%20$url" class="twitter hover"></a>
+    <a class="twitter"></a>
+
+    <a title="Share with Email" target="_blank" href="mailto:?subject=Project+Secret+Identity&amp;body=$url" class="email hover"></a>
+    <a class="email"></a>
+
+    <a title="Share with Tumblr" target="_blank" href="http://projectsecretidentity.tumblr.com/image/$id" class="hover" style="background: none; opacity: 1">
+        <img src="images/tumblr.png" width="32">
+    </a>
 </div>
 </script>
 
