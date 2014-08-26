@@ -66,6 +66,7 @@ function showSinglePost (post) {
     var html = renderPost(post, { setHeight: false }).html();
     var socialHtml = $('#template-social').html()
                         .replace(/\$url/g, permalink)
+                        .replace(/\$blurb/g, encodeURIComponent(post.blurb))
                         .replace(/\$id/g, post.id);
 
     vex.dialog.alert({
