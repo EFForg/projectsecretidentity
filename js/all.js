@@ -33,6 +33,8 @@ $.getJSON("data/posts.json", function (posts) {
             transitionDuration: 0
         });
 
+    $('.fresh').removeClass('fresh');
+
 
     $viewMore
         .removeAttr("disabled")
@@ -55,6 +57,8 @@ $.getJSON("data/posts.json", function (posts) {
             if (!queue.length) {
                 $viewMore.remove();
             }
+
+            $('.fresh').removeClass('fresh');
 
         });
 

@@ -40,6 +40,8 @@ $.getJSON("data/posts.json", function (posts) {
             },
             transitionDuration: 0
         });
+
+    $('.fresh').removeClass('fresh');
 });
 
 function showSinglePost (post) {
