@@ -1,4 +1,6 @@
-vex.defaultOptions.className = 'vex-theme-flat-attack';
+vex.defaultOptions.className = 'vex-theme-default';
+vex.dialog.buttons.YES.text = 'Close';
+
 var $isotope = $(".isotope");
 
 $.getJSON("data/posts.json", function (posts) {
@@ -66,7 +68,9 @@ function showSinglePost (post) {
                         .replace(/\$url/g, permalink)
                         .replace(/\$id/g, post.id);
 
-    vex.dialog.alert(html + socialHtml);
+    vex.dialog.alert({
+        message: html + socialHtml
+    });
 
     $('.vex-overlay').height($('.vex-content').height() + 320);
     $('.vex-overlay').css('min-height', '100%');

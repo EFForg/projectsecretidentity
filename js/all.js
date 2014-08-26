@@ -1,4 +1,5 @@
-vex.defaultOptions.className = 'vex-theme-flat-attack';
+vex.defaultOptions.className = 'vex-theme-default';
+vex.dialog.buttons.YES.text = 'Close';
 
 var $target = $(".target");
 var $viewMore = $("#view-more");
