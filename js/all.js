@@ -91,9 +91,15 @@ function showSinglePost (post) {
 
     vex.dialog.alert(html + socialHtml);
 
+    var offsetY = 0;
+    var windowHeight = $(window).height();
+    var overlayHeight = $('.vex-content').height() + 320;
     $('.vex-overlay').height($('.vex-content').height() + 320);
     $('.vex-overlay').css('min-height', '100%');
-    $('.vex').scrollTop(0)
+    if (overlayHeight > windowHeight) {
+        offsetY = (overlayHeight - windowHeight) / 2;
+    }
+    $('.vex').scrollTop(offsetY);
 }
 
 function renderPost (post, options) {
