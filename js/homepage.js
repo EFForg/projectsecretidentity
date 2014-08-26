@@ -10,7 +10,6 @@ $('.slider')
 
 // Isotope
 var $isotope = $(".isotope");
-var size = $isotope.data('image-size');
 
 $.getJSON("data/posts.json", function (posts) {
     var $wrapper = $("<div>");
@@ -23,7 +22,7 @@ $.getJSON("data/posts.json", function (posts) {
             continue;
         }
 
-        var $el = renderPost(post, size);
+        var $el = renderPost(post);
 
         $wrapper.append($el);
     }
@@ -40,11 +39,8 @@ $.getJSON("data/posts.json", function (posts) {
         });
 });
 
-function renderPost (post, size) {
+function renderPost (post) {
     var photo = post.url500;
-    if (size === 'xl') {
-        photo = post.url1280;
-    }
 
     var $el = $.template("#template-photo", {
         "caption" : post.blurb,
@@ -59,40 +55,4 @@ function renderPost (post, size) {
     $el.find("img").height(height);
 
     return $el;
-}
-
-// Vex
-var hasViewedPrivacyPolicy = false;
-vex.defaultOptions.className = 'vex-theme-flat-attack';
-$('#join').on('click', function(e) {
-    e.preventDefault();
-
-    var joinUrl = this.href;
-
-    if (!hasViewedPrivacyPolicy) {
-        vex.dialog.confirm({
-            message: "To view the form, you'll need to read Tumblr's <a class='tumblr-privacy-policy' href='http://projectsecretidentity.tumblr.com/terms_of_submission' target='_blank'>terms of submission</a>.",
-            callback: function(accepted) {
-                if (accepted) {
-                    if (hasViewedPrivacyPolicy) {
-                        window.location = joinUrl;
-                    } else {
-                        vex.dialog.alert("Please read the <a class='tumblr-privacy-policy' href='http://projectsecretidentity.tumblr.com/terms_of_submission' target='_blank'>terms of submission</a> before proceeding.");
-
-                        listenForPrivacyPolicyClick();
-                    }
-                }
-            }
-        });
-    } else {
-        window.location = joinUrl;
-    }
-
-    listenForPrivacyPolicyClick();
-});
-
-function listenForPrivacyPolicyClick(url) {
-    $('.tumblr-privacy-policy').off().on('click', function (e) {
-        hasViewedPrivacyPolicy = true;
-    });
 }
