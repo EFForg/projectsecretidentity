@@ -23,12 +23,14 @@ $.getJSON("data/posts.json", function (posts) {
 
     $target
         .empty()
-        .append($wrapper.children());
-
-    // Animate in after a delay
-    setTimeout(function () {
-        $target.find('.photo').css('opacity', 1);
-    }, 100);
+        .append($wrapper.children())
+        .isotope({
+            itemSelector : ".photo",
+            masonry : {
+                columnWidth : 320,
+                isFitWidth  : true
+            }
+        });
 
 
     $viewMore
@@ -47,16 +49,11 @@ $.getJSON("data/posts.json", function (posts) {
                 $wrapper.append($el);
             }
 
-            $target.append($wrapper.children());
+            $target.isotope('insert', $wrapper.children());
 
             if (!queue.length) {
                 $viewMore.remove();
             }
-
-            // Animate in after a delay
-            setTimeout(function () {
-                $target.find('.photo').css('opacity', 1);
-            }, 100);
 
         });
 
@@ -81,7 +78,7 @@ $.getJSON("data/posts.json", function (posts) {
 function showSinglePost (post) {
     var permalink = encodeURIComponent('https://projectsecretidentity.org/all.html?' + post.id);
 
-    var html = renderPost(post).html();
+    var html = renderPost(post, { setHeight: false }).html();
     var socialHtml = $('#template-social').html()
                         .replace(/\$url/g, permalink)
                         .replace(/\$id/g, post.id);
@@ -93,7 +90,9 @@ function showSinglePost (post) {
     $('.vex').scrollTop(0)
 }
 
-function renderPost (post) {
+function renderPost (post, options) {
+    options = options || {};
+
     var $el = $.template("#template-photo", {
         "caption" : post.blurb,
         "image"   : post.url500
@@ -101,6 +100,11 @@ function renderPost (post) {
 
     if (!post.blurb) {
         $el.find("p").remove();
+    }
+
+    if (options.setHeight !== false) {
+        var height = (post.height / post.width) * 300;
+        $el.find("img").height(height);
     }
 
     $el.on('click', function (e) {
