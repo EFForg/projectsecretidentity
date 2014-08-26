@@ -37,7 +37,8 @@ $.getJSON("data/posts.json", function (posts) {
             masonry : {
                 columnWidth : 320,
                 isFitWidth  : true
-            }
+            },
+            transitionDuration: 0
         });
 });
 
