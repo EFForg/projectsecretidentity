@@ -1,5 +1,4 @@
 var $iframe = $('iframe');
-$iframe.attr('src', '-');
 
 // Vex
 var hasViewedPrivacyPolicy = false;
