@@ -68,7 +68,7 @@ function showSinglePost (post) {
 
     vex.dialog.alert(html + socialHtml);
 
-    $('.vex-overlay').height($('.vex-content').height() + 300);
+    $('.vex-overlay').height($('.vex-content').height() + 320);
     $('.vex-overlay').css('min-height', '100%');
     $('.vex').scrollTop(0)
 }
