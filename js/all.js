@@ -1,30 +1,36 @@
+(function() { // :)
+
+
+// Configure Vex modals
 vex.defaultOptions.className = 'vex-theme-default';
 vex.dialog.buttons.YES.text = 'Close';
 
-var $target = $(".target");
-var $viewMore = $("#view-more");
-var imageCount = +$target.data('image-count') || 3;
-var queue = [];
 
-$.getJSON("data/posts.json", function (posts) {
-    var $wrapper = $("<div>");
+$.getJSON("data/posts.json", function (photos) {
+    var $isotope = $(".isotope");
+    var imageCount = +$isotope.data('image-count') || 3;
+    var queue = [];
 
-    for (var i = 0; i < posts.length; i++) {
-        var post = posts[i];
+    // Temporary photo storage unit
+    var $photosForIsotope = $("<div>");
+
+    for (var i = 0; i < photos.length; i++) {
+        var post = photos[i];
 
         if (i >= imageCount) {
             queue.push(post);
             continue;
         }
 
-        var $el = renderPost(post);
+        var $el = renderPhoto(post);
 
-        $wrapper.append($el);
+        $photosForIsotope.append($el);
     }
 
-    $target
+    // Set up Isotope
+    $isotope
         .empty()
-        .append($wrapper.children())
+        .append($photosForIsotope.children())
         .isotope({
             itemSelector : ".photo",
             masonry : {
@@ -37,10 +43,12 @@ $.getJSON("data/posts.json", function (posts) {
     $('.fresh').removeClass('fresh');
 
 
+    // Wire up the View More button
+    var $viewMore = $("#view-more");
     $viewMore
         .removeAttr("disabled")
         .on("click", function () {
-            var $wrapper = $("<div>");
+            var $photosForIsotope = $("<div>");
             for (var i = 0; i < imageCount; i++) {
                 if (!queue.length) {
                     break;
@@ -48,12 +56,12 @@ $.getJSON("data/posts.json", function (posts) {
 
                 var post = queue.shift();
 
-                var $el = renderPost(post);
+                var $el = renderPhoto(post);
 
-                $wrapper.append($el);
+                $photosForIsotope.append($el);
             }
 
-            $target.isotope('insert', $wrapper.children());
+            $isotope.isotope('insert', $photosForIsotope.children());
 
             if (!queue.length) {
                 $viewMore.remove();
@@ -67,24 +75,26 @@ $.getJSON("data/posts.json", function (posts) {
         $viewMore.show();
     }
 
+    // Handle queries
     var search = location.search;
     if (search) {
         var id = search.substr(1);
-        for (var i = posts.length - 1; i >= 0; i--) {
-            var post = posts[i];
+        for (var i = photos.length - 1; i >= 0; i--) {
+            var post = photos[i];
 
             if (post.id === id) {
-                showSinglePost(post);
+                showSinglePhoto(post);
                 break;
             }
         };
     }
 });
 
-function showSinglePost (post) {
+// Show a photo popup
+function showSinglePhoto (post) {
     var permalink = encodeURIComponent('https://projectsecretidentity.org/all.html?' + post.id);
 
-    var html = renderPost(post, { setHeight: false }).html();
+    var html = renderPhoto(post, { setHeight: false }).html();
     var socialHtml = $('#template-social').html()
                         .replace(/\$url/g, permalink)
                         .replace(/\$blurb/g, encodeURIComponent(post.blurb))
@@ -103,7 +113,8 @@ function showSinglePost (post) {
     $('.vex').scrollTop(offsetY);
 }
 
-function renderPost (post, options) {
+// Render the simple photo template
+function renderPhoto (post, options) {
     options = options || {};
 
     var $el = $.template("#template-photo", {
@@ -121,8 +132,13 @@ function renderPost (post, options) {
     }
 
     $el.on('click', function (e) {
-        showSinglePost(post);
+        showSinglePhoto(post);
     });
 
     return $el;
 }
+
+
+
+
+})(); // :)
