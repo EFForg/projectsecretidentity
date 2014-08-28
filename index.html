@@ -68,18 +68,189 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
-<body style="background-color: #000">
+<body>
 
 
 <header>
     <div class="masks">
-        <a href="https://www.eff.org/press/releases/cosplayers-fight-online-anonymity-and-privacy-during-dragon-con"><img alt="Project Secret Identity" src="images/masks-banner-1.png"></a>
+        <img alt="Project Secret Identity" class="desktop" src="images/masks-1.png">
+        <img alt="Project Secret Identity" class="mobile" src="images/masks-1-mobile.png">
     </div>
 </header>
 
 
+<section class="middle">
+    <nav>
+        <div class="centered">
+            <a href="./">Home</a>
+            &#8226;
+            <a href="./about.html">About</a>
+            &#8226;
+            <a href="./join.html">Add Photo</a>
+            <span class="desktop">&#8226;</span>
+            <br class="mobile">
+            <a href="./all.html">View All</a>
+            &#8226;
+            <a href="./privacy.html">Privacy Policy</a>
+            <span class="desktop">&#8226;</span>
+            <br class="mobile">
+            <a href="https://act.eff.org/">Take Action</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <noscript>
+            <div class="slide">
+                <img src="images/cosplay-jla-avengers-1.jpg">
+            </div>
+        </noscript>
+
+        <div class="slider loading"></div>
+
+        <h3>
+            We all have a right to a secret identity.
+        </h3>
+
+        <p>
+            Join the Electronic Frontier Foundation, io9, and a coalition of fan communities for Project Secret Identity, a cosplay photo campaign to raise awareness of how <a href="https://www.eff.org/deeplinks/2013/10/online-anonymity-not-only-trolls-and-political-dissidents" target="_blank">anonymity</a> and <a href="https://www.eff.org/deeplinks/2012/01/right-anonymity-matter-privacy" target="_blank">privacy</a> are key to free expression.
+        </p>
+
+        <p>
+            <strong>
+                Add your photo. Demand freedom from government surveillance when you use technology.
+            </strong>
+        </p>
+
+        <p>
+            <strong>
+                Two ways to participate:
+            </strong>
+        </p>
+
+        <p class="indented">
+            <strong>
+                1. Join us at Dragon Con.
+            </strong>
+
+            During Dragon Con in Atlanta, Aug. 29 &ndash; Sept. 1, you can visit our photo stations at the convention: EFF (Second floor at the Hilton) or Southeastern Browncoats (Table #1000 at AmericasMart).
+        </p>
+
+        <p class="indented">
+            <strong>
+                2. Join the campaign from anywhere in the world.
+            </strong>
+
+            Can't make it to Dragon Con? Join anyway by uploading your own photo using the button below.  Just put on a costume and make yourself a sign that says "I have a right to a secret identity" or another Internet freedom slogan (<a href="./about.html#suggestions">here are a few other ideas</a>).
+        </p>
+
+        <a id="join" href="./join.html"><img alt="Add your photo" src="images/add.png"></a>
+        <a href="./all.html"><img alt="View all photos" src="images/view.png"></a>
+
+        <br>
+        <br>
+
+        <div class="social">
+            <a class="googleplus hover" href="https://plus.google.com/share?url=https://projectsecretidentity.org" target="_blank" title="Share on Google+"></a>
+            <a class="googleplus"></a>
+
+            <a class="facebook hover" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fprojectsecretidentity.org" target="_blank" title="Share on Facebook"></a>
+            <a class="facebook"></a>
+
+            <a class="twitter hover" href="https://twitter.com/intent/tweet?text=Fandoms%20vs.%20Big%20Brother.%20These%20cosplayers%20are%20fighting%20for%20the%20right%20to%20a%20secret%20identity.&url=https://projectsecretidentity.org&related=eff" target="_blank" title="Share on Twitter"></a>
+            <a class="twitter"></a>
+
+            <a class="email hover no-margin" href="mailto:?subject=Project Secret Identity&body=Cosplayers fight for their right to a secret identity. https://projectsecretidentity.org/" title="Send an Email"></a>
+            <a class="email no-margin"></a>
+        </div>
+    </div>
+
+</section>
+
+
+<section class="featured">
+    <div class="featured-photos">
+        <img alt="Featured Photos" src="images/featuredphotos-header.png">
+    </div>
+
+    <div class="isotope-wrapper">
+        <div class="isotope">
+            <img alt="Loading images" src="images/preloader.gif">
+        </div>
+    </div>
+
+    <noscript>
+        We noticed you have scripts disabled.
+        <br>
+        Check out the photos on <a href="http://projectsecretidentity.tumblr.com/">our Tumblr page</a>!
+    </noscript>
+</section>
+
+
+<footer>
+    <div class="logocloud">
+        <img alt="Cloud of partner logos" src="images/logocloud-inverted.jpg">
+    </div>
+
+    <a href="https://www.eff.org/copyright">
+        <img alt="Creative Commons Licensed" src="https://www.eff.org/sites/all/themes/frontier/images/cc-by-logo.png" typeof="foaf:Image">
+    </a>
+</footer>
+
+<!-- Scripts -->
+<script type="text/javascript" src="js/vendor/jquery.js"></script>
+<script type="text/javascript" src="js/vendor/jquery.template.js"></script>
+<script type="text/javascript" src="js/vendor/isotope.js"></script>
+<script type="text/javascript" src="js/vendor/vex.js"></script>
+<script type="text/javascript" src="owl/owl.carousel.js"></script>
+<script type="text/javascript" src="js/homepage.js" async></script>
+
+
+<!-- Templates -->
+<script type="text/template" id="template-photo">
+<div class="photo fresh">
+<img class="src-image">
+<p class="text-caption"></p>
+</div>
+</script>
+
+<script type="text/template" id="template-social">
+<div class="social">
+    <a title="Share with Google+" target="_blank" href="https://plus.google.com/share?url=http://projectsecretidentity.tumblr.com/post/$id" class="googleplus hover"></a>
+    <a class="googleplus"></a>
+
+    <a title="Share with Facebook" target="_blank" href="https://www.facebook.com/sharer.php?u=http://projectsecretidentity.tumblr.com/post/$id" class="facebook hover"></a>
+    <a class="facebook"></a>
+
+    <a title="Share with Twitter" target="_blank" href="https://twitter.com/intent/tweet?text=$blurb&url=http://projectsecretidentity.tumblr.com/post/$id&related=eff" class="twitter hover"></a>
+    <a class="twitter"></a>
+
+    <a title="Share with Tumblr" target="_blank" href="http://projectsecretidentity.tumblr.com/post/$id" class="tumblr hover"></a>
+    <a class="tumblr"></a>
+
+    <a title="Share with Email" href="mailto:?subject=Project Secret Identity&amp;body=$blurb $url" class="email hover no-margin"></a>
+    <a class="email no-margin"></a>
+</div>
+</script>
+
+<script type="text/template" id="template-slide">
+<div class="slide">
+    <img class="src-image">
+</div>
+</script>
+
+
+<!-- Owl Styles -->
+<link rel="stylesheet" type="text/css" href="owl/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="owl/owl.theme.css">
+<link rel="stylesheet" type="text/css" href="owl/owl.transitions.css">
+
+<!-- Vex Styles -->
+<link rel="stylesheet" href="css/vex.css" />
+<link rel="stylesheet" href="css/vex-theme-default.css" />
+
+
 <!-- Aggregated Analytics -->
-<img src="https://anon-stats.eff.org/piwik.php?idsite=17&amp;rec=1&amp;action_name=BANNER" style="border:0" alt="" />
+<img src="https://anon-stats.eff.org/piwik.php?idsite=17&amp;rec=1&amp;action_name=HOMEPAGE" style="border:0" alt="" />
 
 
 </body>
