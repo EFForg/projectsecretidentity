@@ -83,7 +83,7 @@ $.getJSON("data/posts.json", function (photos) {
             var post = photos[i];
 
             if (post.id === id) {
-                showSinglePhoto(post);
+                showPhotoPopup(post);
                 break;
             }
         };
@@ -91,20 +91,29 @@ $.getJSON("data/posts.json", function (photos) {
 });
 
 // Show a photo popup
-function showSinglePhoto (post) {
+function showPhotoPopup (post) {
     // Create permalink
     var baseUrl = 'https://projectsecretidentity.org/all.html?';
     var permalink = encodeURIComponent(baseUrl + post.id);
 
+    // Updated URL
+    history.replaceState(null, null, '/all.html?' + post.id);
+
     // Create HTML
-    var html = renderPhoto(post, { setHeight: false }).html();
+    var slideHtml = renderPhoto(post, { setHeight: false }).html();
     var socialHtml = $('#template-social').html()
                         .replace(/\$url/g, permalink)
                         .replace(/\$blurb/g, encodeURIComponent(post.blurb))
                         .replace(/\$id/g, post.id);
+    var html = slideHtml + socialHtml;
 
     // Show Vex popup
-    vex.dialog.alert(html);
+    vex.dialog.alert({
+        callback: function () {
+            history.replaceState(null, null, '/all.html');
+        },
+        message: html
+    });
 
     // Update Vex overlay size, and scroll position
     var offsetY = 0;
@@ -118,7 +127,7 @@ function showSinglePhoto (post) {
     $('.vex').scrollTop(offsetY);
 }
 
-// Render the simple photo template
+// Render a photo with a blurb
 function renderPhoto (post, options) {
     options = options || {};
 
@@ -137,7 +146,7 @@ function renderPhoto (post, options) {
     }
 
     $el.on('click', function (e) {
-        showSinglePhoto(post);
+        showPhotoPopup(post);
     });
 
     return $el;

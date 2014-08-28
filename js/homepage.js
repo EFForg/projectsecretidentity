@@ -17,11 +17,11 @@ $.getJSON("data/posts.json", function (photos) {
 
         if (photo.tags) {
             if (photo.tags.indexOf('topsecret') !== -1) {
-                $photosForOwl.append(renderSlide(photo));
+                $photosForOwl.append(renderSimplePhoto(photo));
             }
 
             if (photo.tags.indexOf('featured') !== -1) {
-                $photosForIsotope.append(renderDetailedSlide(photo));
+                $photosForIsotope.append(renderPhoto(photo));
             }
         }
     }
@@ -50,16 +50,33 @@ $.getJSON("data/posts.json", function (photos) {
             transitionDuration: 0
         })
         .find('.fresh').removeClass('fresh');
+
+    // Handle queries
+    var search = location.search;
+    if (search) {
+        var id = search.substr(1);
+        for (var i = photos.length - 1; i >= 0; i--) {
+            var post = photos[i];
+
+            if (post.id === id) {
+                showPhotoPopup(post);
+                break;
+            }
+        };
+    }
 });
 
-// Show a detailed slide popup
-function showDetailedSlide (post) {
+// Show a photo popup
+function showPhotoPopup (post) {
     // Create permalink
     var baseUrl = 'https://projectsecretidentity.org/all.html?';
     var permalink = encodeURIComponent(baseUrl + post.id);
 
+    // Updated URL
+    history.replaceState(null, null, '/?' + post.id);
+
     // Create HTML
-    var slideHtml = renderDetailedSlide(post, { setHeight: false }).html();
+    var slideHtml = renderPhoto(post, { setHeight: false }).html();
     var socialHtml = $('#template-social').html()
                         .replace(/\$url/g, permalink)
                         .replace(/\$blurb/g, encodeURIComponent(post.blurb))
@@ -67,7 +84,12 @@ function showDetailedSlide (post) {
     var html = slideHtml + socialHtml;
 
     // Show Vex popup
-    vex.dialog.alert(html);
+    vex.dialog.alert({
+        callback: function () {
+            history.replaceState(null, null, '/');
+        },
+        message: html
+    });
 
     // Update Vex overlay size, and scroll position
     var offsetY = 0;
@@ -81,8 +103,8 @@ function showDetailedSlide (post) {
     $('.vex').scrollTop(offsetY);
 }
 
-// Render the detailed slide template
-function renderDetailedSlide (post, options) {
+// Render a photo with a blurb
+function renderPhoto (post, options) {
     options = options || {};
 
     var $el = $.template("#template-photo", {
@@ -100,20 +122,20 @@ function renderDetailedSlide (post, options) {
     }
 
     $el.on('click', function (e) {
-        showDetailedSlide(post);
+        showPhotoPopup(post);
     });
 
     return $el;
 }
 
-// Render the simple slide template
-function renderSlide (post) {
+// Render a photo
+function renderSimplePhoto (post) {
     var $el = $.template("#template-slide", {
         "image"   : post.url500
     });
 
     $el.on('click', function (e) {
-        showDetailedSlide(post);
+        showPhotoPopup(post);
     });
 
     return $el;
