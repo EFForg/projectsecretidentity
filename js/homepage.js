@@ -1,27 +1,34 @@
+(function() { // :)
+
+
+// Configure Vex modals
 vex.defaultOptions.className = 'vex-theme-default';
 vex.dialog.buttons.YES.text = 'Close';
 
-var $isotope = $(".isotope");
 
-$.getJSON("data/posts.json", function (posts) {
-    var $wrapper;
+$.getJSON("data/posts.json", function (photos) {
+    // Temporary photo storage units
+    var $photosForIsotope = $("<div>");
+    var $photosForOwl = $("<div>");
 
-    // OWL Carousel
-    $wrapper = $("<div>");
-    for (var i = 0; i < posts.length; i++) {
-        var post = posts[i];
+    // Filter & render photos
+    for (var i = 0; i < photos.length; i++) {
+        var photo = photos[i];
 
-        // Show featured images
-        if (!post.tags || post.tags.indexOf('topsecret') == -1) {
-            continue;
+        if (photo.tags) {
+            if (photo.tags.indexOf('topsecret') !== -1) {
+                $photosForOwl.append(renderSlide(photo));
+            }
+
+            if (photo.tags.indexOf('featured') !== -1) {
+                $photosForIsotope.append(renderDetailedSlide(photo));
+            }
         }
-
-        var $el = renderSlide(post);
-
-        $wrapper.append($el);
     }
-    $('.slider')
-        .append($wrapper.children())
+
+    // Set up Owl slider
+    $(".slider")
+        .append($photosForOwl.children())
         .owlCarousel({
             autoPlay: 3000,
             pagination: false,
@@ -30,24 +37,10 @@ $.getJSON("data/posts.json", function (posts) {
         })
         .removeClass('loading');
 
-    // Isotope
-    $wrapper = $("<div>");
-    for (var i = 0; i < posts.length; i++) {
-        var post = posts[i];
-
-        // Show featured images
-        if (!post.tags || post.tags.indexOf('featured') == -1) {
-            continue;
-        }
-
-        var $el = renderPost(post);
-
-        $wrapper.append($el);
-    }
-
-    $isotope
+    // Set up Isotope
+    $('.isotope')
         .empty()
-        .append($wrapper.children())
+        .append($photosForIsotope.children())
         .isotope({
             itemSelector : ".photo",
             masonry : {
@@ -55,24 +48,28 @@ $.getJSON("data/posts.json", function (posts) {
                 isFitWidth  : true
             },
             transitionDuration: 0
-        });
-
-    $('.fresh').removeClass('fresh');
+        })
+        .find('.fresh').removeClass('fresh');
 });
 
-function showSinglePost (post) {
-    var permalink = encodeURIComponent('https://projectsecretidentity.org/all.html?' + post.id);
+// Show a detailed slide popup
+function showDetailedSlide (post) {
+    // Create permalink
+    var baseUrl = 'https://projectsecretidentity.org/all.html?';
+    var permalink = encodeURIComponent(baseUrl + post.id);
 
-    var html = renderPost(post, { setHeight: false }).html();
+    // Create HTML
+    var slideHtml = renderDetailedSlide(post, { setHeight: false }).html();
     var socialHtml = $('#template-social').html()
                         .replace(/\$url/g, permalink)
                         .replace(/\$blurb/g, encodeURIComponent(post.blurb))
                         .replace(/\$id/g, post.id);
+    var html = slideHtml + socialHtml;
 
-    vex.dialog.alert({
-        message: html + socialHtml
-    });
+    // Show Vex popup
+    vex.dialog.alert(html);
 
+    // Update Vex overlay size, and scroll position
     var offsetY = 0;
     var windowHeight = $(window).height();
     var overlayHeight = $('.vex-content').height() + 320;
@@ -84,7 +81,8 @@ function showSinglePost (post) {
     $('.vex').scrollTop(offsetY);
 }
 
-function renderPost (post, options) {
+// Render the detailed slide template
+function renderDetailedSlide (post, options) {
     options = options || {};
 
     var $el = $.template("#template-photo", {
@@ -102,20 +100,25 @@ function renderPost (post, options) {
     }
 
     $el.on('click', function (e) {
-        showSinglePost(post);
+        showDetailedSlide(post);
     });
 
     return $el;
 }
 
+// Render the simple slide template
 function renderSlide (post) {
     var $el = $.template("#template-slide", {
         "image"   : post.url500
     });
 
     $el.on('click', function (e) {
-        showSinglePost(post);
+        showDetailedSlide(post);
     });
 
     return $el;
 }
+
+
+
+})(); // :)
