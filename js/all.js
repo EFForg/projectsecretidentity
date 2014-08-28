@@ -92,16 +92,21 @@ $.getJSON("data/posts.json", function (photos) {
 
 // Show a photo popup
 function showSinglePhoto (post) {
-    var permalink = encodeURIComponent('https://projectsecretidentity.org/all.html?' + post.id);
+    // Create permalink
+    var baseUrl = 'https://projectsecretidentity.org/all.html?';
+    var permalink = encodeURIComponent(baseUrl + post.id);
 
+    // Create HTML
     var html = renderPhoto(post, { setHeight: false }).html();
     var socialHtml = $('#template-social').html()
                         .replace(/\$url/g, permalink)
                         .replace(/\$blurb/g, encodeURIComponent(post.blurb))
                         .replace(/\$id/g, post.id);
 
-    vex.dialog.alert(html + socialHtml);
+    // Show Vex popup
+    vex.dialog.alert(html);
 
+    // Update Vex overlay size, and scroll position
     var offsetY = 0;
     var windowHeight = $(window).height();
     var overlayHeight = $('.vex-content').height() + 320;
