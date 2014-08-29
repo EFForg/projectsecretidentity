@@ -47,7 +47,9 @@ $.getJSON("data/posts.json", function (photos) {
     var $viewMore = $("#view-more");
     $viewMore
         .removeAttr("disabled")
-        .on("click", function () {
+        .on("click", function (e) {
+            e.preventDefault();
+
             var $photosForIsotope = $("<div>");
             for (var i = 0; i < imageCount; i++) {
                 if (!queue.length) {
