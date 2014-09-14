@@ -27,15 +27,18 @@ $.getJSON("data/posts.json", function (photos) {
     }
 
     // Set up Owl slider
-    $(".slider")
-        .append($photosForOwl.children())
-        .owlCarousel({
-            autoPlay: 3000,
-            pagination: false,
-            singleItem: true,
-            transitionStyle: 'goDown'
-        })
-        .removeClass('loading');
+    var firstOwlImage = $photosForOwl.find('img').get(0);
+    firstOwlImage.onload = function() {
+        $(".slider")
+            .append($photosForOwl.children())
+            .owlCarousel({
+                autoPlay: 3000,
+                pagination: false,
+                singleItem: true,
+                transitionStyle: 'goDown'
+            })
+            .removeClass('loading');
+    };
 
     // Set up Isotope
     $('.isotope')
