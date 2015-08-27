@@ -264,7 +264,7 @@
   font-family: "Helvetica Neue", sans-serif;
   font-weight: 200;
   background: white;
-  color: #f05a28;
+  color: #6c04bb;
   padding: 2em 2em 3em 2em;
   line-height: 1.5em;
   position: relative;
@@ -273,11 +273,11 @@
   width: 600px;
 }
 .vex.vex-theme-flat-attack .vex-content a {
-  color: #fbb040;
+  color: #e043f7;
   text-decoration: none;
 }
 .vex.vex-theme-flat-attack .vex-content a:hover {
-  /*color: #f05a28;*/
+  /*color: #6c04bb;*/
   text-decoration: underline;
 }
 /* line 57, ../sass/vex-theme-flat-attack.sass */
@@ -383,7 +383,7 @@
 }
 /* line 133, ../sass/vex-theme-flat-attack.sass */
 .vex.vex-theme-flat-attack .vex-dialog-button.vex-dialog-button-primary {
-  background: #f05a28;
+  background: #6c04bb;
   color: white;
 }
 /* line 137, ../sass/vex-theme-flat-attack.sass */
